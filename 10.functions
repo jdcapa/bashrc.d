@@ -1,0 +1,198 @@
+#!/usr/bin/env bash
+
+
+function doi(){
+    curl -sLH "Accept: text/bibliography; style=bibtex" http://dx.doi.org/$1 | sed -r 's/[a-Z]*=/\n    &/g' | sed 's/}}/}\n}\n/g'
+}
+function c42(){
+    watch -t -c -n10 "pwd && c4 -s OUT && echo '\nLast 10 lines of the OUTPUT file:\n' && tail -n10 OUT"
+}
+function pdfc(){
+    pdftk $1 cat 2-end output temp0ax.pdf && mv temp0ax.pdf $1
+}
+
+function extract()
+{
+     if [ -f $1 ] ; then
+         case $1 in
+             *.tar.bz2)   tar xvjf $1     ;;
+             *.tar.gz)    tar xvzf $1     ;;
+             *.tar.xz)    tar xvJf $1     ;;
+             *.bz2)       bunzip2 $1      ;;
+             *.rar)       unrar x $1      ;;
+             *.gz)        gunzip $1       ;;
+             *.tar)       tar xvf $1      ;;
+             *.tbz2)      tar xvjf $1     ;;
+             *.tgz)       tar xvzf $1     ;;
+             *.zip)       unzip $1        ;;
+             *.Z)         uncompress $1   ;;
+             *.7z)        7z x $1         ;;
+             *)           echo "'$1' cannot be extracted via >extract<" ;;
+         esac
+     else
+         echo "'$1' is not a valid file"
+     fi
+}
+
+function lowercase()  # move filenames to lowercase
+{
+    for file ; do
+        filename=${file##*/}
+        case "$filename" in
+        */*) dirname==${file%/*} ;;
+        *) dirname=.;;
+        esac
+        nf=$(echo $filename | tr A-Z a-z)
+        newname="${dirname}/${nf}"
+        if [ "$nf" != "$filename" ]; then
+            mv "$file" "$newname"
+            echo "lowercase: $file --> $newname"
+        else
+            echo "lowercase: $file not changed."
+        fi
+    done
+}
+
+
+function swap()  # Swap 2 filenames around, if they exist
+{
+    local TMPFILE=tmp.$$
+
+    [ $# -ne 2 ] && echo "swap: 2 arguments needed" && return 1
+    [ ! -e $1 ] && echo "swap: $1 does not exist" && return 1
+    [ ! -e $2 ] && echo "swap: $2 does not exist" && return 1
+
+    mv "$1" $TMPFILE
+    mv "$2" "$1"
+    mv $TMPFILE "$2"
+}
+
+function myip() # Get IP adresses.
+{
+    ETH=$(/sbin/ifconfig eth0 | awk '/inet/ { print $2 } ' | \
+          sed -e s/addr://)
+
+    WLAN=$(/sbin/ifconfig wlan0 | awk '/inet/ { print $2 } ' | \
+          sed -e s/addr://)
+    echo -e "${BOLD}Local eth0 IP Address: ${NA}${cyan} `echo ${ETH:-'Not connected'}`$NA"
+    echo -e "${BOLD}Local wlan0 IP Address:${NA}${cyan} `echo ${WLAN:-'Not connected'}`$NA"
+}
+
+function mem()
+{
+    total_mem=$(/usr/bin/free -m | awk '/Mem/ { print $2 } ')
+    used_mem=$(/usr/bin/free -m | awk '/buffers\/cache/ { print $3 } ')
+    ratio_mem=`echo $used_mem $total_mem | awk '{printf "%.1f%", ($1 / $2 * 100)}'`
+    total_swap=$(/usr/bin/free -m | awk '/Swap/ {printf "%.2f", ($2 / 1000)} ')
+    used_swap=$(/usr/bin/free -m | awk '/Swap/ {printf "%.2f", ($3 / 1000)} ')
+    ratio_swap=`echo $used_swap $total_swap | awk '{printf "%.1f%", ($1 / $2 * 100)}'`
+    echo -e "${BOLD}RAM usage:$NA  ${cyan} $used_mem MB of $total_mem MB ($ratio_mem) $NA"
+    echo -e "${BOLD}Swap usage:$NA ${cyan} $used_swap GB of $total_swap GB ($ratio_swap) $NA"
+}
+
+function ii()   # Get current host related info.
+{
+    echo -e "\n${BOLD}User:$NA ${BLUE}${USER}@${HOSTNAME}$NA"
+    echo -e "\n${BOLD}Current date: ${green}`date`$NA"
+    echo -e "\n${BOLD}OS/Kernel:$NA `uname -s -r -m`"
+    echo -e "\n${BOLD}Machine stats :$NA \n`uptime`"
+    echo -e "\n`mem`"
+    echo -e "\n`myip`"
+    echo -e "\n${BOLD}HDD space:$NA \n`/bin/df -h | grep -v none | grep -v udev | grep -v tmpfs`"
+    echo -e "\n${BOLD}Users logged on:$NA " ; w -h
+    echo -e "\n${BOLD}Open TCP connections :$NA "; netstat -pan --inet -tp 2>1 | tail -n+2;
+    echo
+}
+
+function repeat()       # Repeat n times command.
+{
+    local i max
+    max=$1; shift;
+    for ((i=1; i <= max ; i++)); do  # --> C-like syntax
+        eval "$@";
+    done
+}
+
+function tree()
+{
+   find -type d | sed -e "s/[^-][^\/]*\//  |/g" -e "s/|\([^ ]\)/|-\1/";
+}
+
+
+
+function Cfour()
+{
+    echo "Starting cfour job on `uname -n` (`uname -s`, `uname -p`, `uname -r`).";
+    echo "Time: `date`";
+    xcfour;
+    echo "Finishing cfour job on `uname -n` (`uname -s`, `uname -p`, `uname -r`).";
+    echo "Time: `date`";
+}
+
+function o_backup()
+{
+    from=$1;
+    to=~/QC_Lib/$2;
+    rsync -ralvPz -e ssh \
+         --exclude="*tmp*" \
+         --exclude="*atom*" \
+         --include="*/" \
+         --include="*.sh" \
+         --include="*.inp" \
+         --include="*.py" \
+         --include="*.out" \
+         --include="*.gbw" \
+         --include="*.hess" \
+         --include="*.opt" \
+         --include="*.engrad" \
+         --include="*.xyz" \
+         --include="*.trj" \
+         --include="*.job" \
+         --exclude="*" "$from" "$to";
+}
+
+function c4_backup()
+{
+    from=$1;
+    to=~/QC_Lib/$2;
+    rsync -ralvPz -e ssh \
+         --include="*/" --include="*.sh" --include="*.py" \
+         --include="*.bak" --include="*.log" --include="*DCT" --include="*DIPDER" \
+         --include="*DIPOL" --include="*DIPOL0" --include="*Displacement_*" \
+         --include="*EFG" --include="*EXIT" --include="*FCM" --include="*FCM000" \
+         --include="*FCMFINAL" --include="*FCMINT" --include="*FILES" \
+         --include="*FJOBARC" --include="*FRQARC" --include="*ECPDATA" \
+         --include="*GENBAS" --include="*GRD" --include="*GRDINT" \
+         --include="*JAINDX" --include="*JMOLplot" --include="*JOBARC" \
+         --include="*JODADONE" --include="*MOL" --include="*basinfo.data" \
+         --include="*MOLDEN" --include="*MOLDEN_NAT" --include="*NEWMOS" \
+         --include="*NORMCO" --include="*OPTARC" --include="*OUT" \
+         --include="*POLAR" --include="*POLARSCF" --include="*QUADRATURE" \
+         --include="*RESLEV" --include="*THETA" --include="*TIMING" \
+         --include="*ZMAT" --include="*ZMATnew" --include="*ZMATtemp" \
+         --include="*coriolis" --include="*corioliszeta" --include="*.tar*"\
+         --include="*cubic" --include="*dct0" --include="*den.dat"  \
+         --include="*dipolex" --include="*dipoley" --include="*dipolez" \
+         --include="*iface" --include="*quadratic" --include="*quartic" \
+         --include="*rota" --include="*zmat*" --include="*.xyz" \
+         --exclude="*" "$from" "$to";
+}
+
+# function backup()
+# {
+#     rsync -razvP --exclude "*tmp*" --exclude "fort.*" --exclude "DERINT" --exclude "DERGAM" --exclude "VPOUT" --exclude "MOINTS" --exclude "IIII" --exclude "IIJJ" --exclude "IJIJ" --exclude "IJKL" $1 ~/temp_QC/$2 ;
+# }
+
+# function qmsync_Wn()
+# {
+#     find -name "*.inp" -o -name "ZMAT*" -o -name "GENBAS" -o -name "ECPDATA" -o -name "*.xyz"| xargs -0 sh -c \
+#     'for filename; do
+# }
+
+# function find_displacements()
+# {
+#     find -name OUT -print0 | xargs -0 sh -c \
+#     'for filename; do countg=$(grep "CPHF coefficients" $filename | wc -l) && echo "$filename $countg"  ; done' fnord | sort
+# }
+
+

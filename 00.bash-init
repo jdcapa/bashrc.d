@@ -1,0 +1,22 @@
+#!/usr/bin/env bash
+
+# Bash Options
+HISTCONTROL=ignoredups:ignorespace
+HISTSIZE=10000
+HISTFILESIZE=20000
+export TIMEFORMAT=$'\nreal %3R\tuser %3U\tsys %3S\tpcpu %P\n'
+export HISTTIMEFORMAT="%H:%M > "
+export HISTIGNORE="&:bg:fg:ll:h"
+
+ulimit -S -c 0          # Don't want any coredumps.
+set -o notify  # Get immediate notification of background job termination
+
+shopt -s cdspell  # Correct dir spellings
+shopt -q -s cmdhist  # Make multi-line commandsline in history
+shopt -s checkwinsize  # Make sure display get updated when terminal window get resized
+shopt -s cmdhist
+shopt -s histappend histreedit histverify
+shopt -q -s extglob  # Turn on the extended pattern matching features
+
+unset USERNAME
+

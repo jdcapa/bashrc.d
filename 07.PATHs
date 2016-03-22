@@ -1,0 +1,37 @@
+#!/usr/bin/env bash
+
+
+# Remaining Paths
+if [ -d /usr/local/bin ]; then
+    LOCALBIN=/usr/local/bin
+    PATH=$PATH:$LOCALBIN
+fi
+
+
+if [ -e $BIN/Python/bin ]; then
+    PYBIN=$BIN/Python/bin
+    PATH=$PATH:$PYBIN
+fi
+
+# Remaining Libraries
+if [ -d /usr/local/lib ]; then
+    LOCALLIB=/usr/local/lib
+    LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$LOCALLIB
+fi
+
+if [ -e /usr/lib/x86_64-linux-gnu ]; then
+    GNULIB=/usr/lib/x86_64-linux-gnu
+    LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$GNULIB
+fi
+
+# Remaining Python
+if [ -e $BIN/Python/modules ]; then
+    PYMOD=$BIN/Python/modules
+    PYTHONPATH=$PYTHONPATH:$PYMOD:$LOCALLIB
+fi
+
+# Finally
+export PATH
+export LD_LIBRARY_PATH
+export PYTHONPATH
+
