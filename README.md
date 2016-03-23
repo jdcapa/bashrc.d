@@ -14,7 +14,7 @@ Now update your `$HOME/.bashrc` file via:
 
 `cat $HOME/.bashrd.d/bashrc.init >> $HOME/.bashrc`
 
-**Make sure bashrc.init is not executable; otherwise you will create a loop.**
+**Make sure `bashrc.init` is not executable; otherwise you will create a loop.**
 Since the lines added to the `$HOME/.bashrc` contain the following.
 
 ```bash
@@ -32,4 +32,4 @@ Hence, the bashrc.d/ files with an `x` flag (`chmod +x <file>`) will be executed
 
 Sources
 -------
-This is a modified version of the *.bashrc'd method* described by [chisel] (http://blogs.perl.org/users/chisel/2011/08/managing-my-shell-setup.html).
+This is a modified version of the *.bashrc.d method* described by [chisel] (http://blogs.perl.org/users/chisel/2011/08/managing-my-shell-setup.html).
