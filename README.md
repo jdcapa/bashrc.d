@@ -5,7 +5,7 @@ This is the directory to my `.bashrc` file
 Install
 -------
 
-Simply download the folder to your $HOME and add the following lines to your `$HOME/.bashrc` file:
+Simply download the folder to your `$HOME` and add the following lines to your `$HOME/.bashrc` file:
 
 ```bash
 if [ -d $HOME/.bashrc.d ]; then
