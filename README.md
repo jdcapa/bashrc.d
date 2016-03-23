@@ -6,7 +6,16 @@ In the directory, all necessary bash options, paths, aliases and functions are p
 Install
 -------
 
-Simply download the folder to your `$HOME` and add the following lines to your `$HOME/.bashrc` file:
+Simply clone the .bashrc.d directory to your `$HOME` via:
+
+`git clone https://github.com/jdcapa/bashrc.d.git $HOME/.bashrc.d` 
+
+Now update your `$HOME/.bashrc` file via:
+
+`cat $HOME/.bashrd.d/bashrc.init >> $HOME/.bashrc`
+
+**Make sure this file is not executable; otherwise you will create a loop.**
+Since the lines added to the `$HOME/.bashrc` contain the following.
 
 ```bash
 if [ -d $HOME/.bashrc.d ]; then
@@ -18,5 +27,9 @@ if [ -d $HOME/.bashrc.d ]; then
 fi
 ```
 
-The bashrc.d/ files with an `x` flag (`chmod +x <file>`) will be executed during the bash initialisation.
-This is a modified version of something described by [chisel] (http://blogs.perl.org/users/chisel/2011/08/managing-my-shell-setup.html).
+Hence, the bashrc.d/ files with an `x` flag (`chmod +x <file>`) will be executed during the bash initialisation.
+
+
+Sources
+-------
+This is a modified version of the *.bashrc'd method* described by [chisel] (http://blogs.perl.org/users/chisel/2011/08/managing-my-shell-setup.html).
