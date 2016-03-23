@@ -19,7 +19,7 @@ Simply clone the .bashrc.d directory to your `$HOME` via:
 
 Now update your `$HOME/.bashrc` file via:
 
-    $ cat $HOME/.bashrd.d/bashrc.init >> $HOME/.bashrc
+    $ cat $HOME/.bashrc.d/bashrc.init >> $HOME/.bashrc
 
 
 The `bashrc.d/*` files with an **`x`** flag (`chmod u+x <file>`) will be
