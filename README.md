@@ -27,9 +27,9 @@ The `bashrc.d/*` files with an **`x`** flag (`chmod u+x <file>`) will be
 Therefore, if you want additional functionality, just add an executable bash
  file to your `bashrc.d/`.
 It should be noted that in the current set-up, the `$PATH` and related
- variables get exported in stage 7.
+ variables get exported in stage 6.
 Hence, everything concerning the path or library_path environment variables
- should be set in stage 6.
+ should be set in stage 5.
 
 
 Sources
