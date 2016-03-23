@@ -30,7 +30,7 @@ if [ -e $BIN/Python/modules ]; then
     PYTHONPATH=$PYTHONPATH:$PYMOD:$LOCALLIB
 fi
 
-# Finally
+# Finally all the variables get exported. Don't add PATH etc. changes after this.
 export PATH
 export LD_LIBRARY_PATH
 export PYTHONPATH

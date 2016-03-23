@@ -1,19 +1,19 @@
 #!/usr/bin/env bash
 
-# Define some text attributes:
+# Define some text attributes and colours:
 BOLD='\E[1m'
 ital='\E[3m'
-red='\E[0;31m'
-RED='\E[1;31m'
-green='\E[0;32m'
-GREEN='\E[1;32m'
-blue='\E[0;34m'
-BLUE='\E[1;34m'
-cyan='\E[0;36m'
-CYAN='\E[1;36m'
-NA='\E(B\E[m'   # No attributes
+red='\E[0;31m'      # red
+RED='\E[1;31m'      # red and bold
+green='\E[0;32m'    # green
+GREEN='\E[1;32m'    # green and bold
+blue='\E[0;34m'     # blue
+BLUE='\E[1;34m'     # blue and bold
+cyan='\E[0;36m'     # cyan
+CYAN='\E[1;36m'     # cyan and bold
+NA='\E(B\E[m'       # No attributes
 
-# enable color support of ls and also add handy aliases
+# enable colour support of ls and ?grep
 if [ -x /usr/bin/dircolors ]; then
     test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
     alias ls='ls --color=auto'
@@ -21,4 +21,3 @@ if [ -x /usr/bin/dircolors ]; then
     alias fgrep='fgrep --color=auto'
     alias egrep='egrep --color=auto'
 fi
-

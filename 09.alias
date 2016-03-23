@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-# some ls aliases
+# ls aliases
 alias ll="ls -l --group-directories-first"
 alias ls='ls -hF --color'  # add colors for filetype recognition
 alias la='ls -Al'          # show hidden files
@@ -19,20 +19,24 @@ alias vi='vim'
 alias md='mkdir'
 alias rd='rm -rf'
 alias ..='cd ..'
-alias diff='diff -u'
+alias ...='cd ../..'
+alias ....='cd ../../..'
+alias diff='diff -u'      # diff in unified mode is more useful
 alias tgz='tar -czpf'
 alias txz='tar -cJpf'
 alias reload='source ~/.bashrc'
 alias ds1='du -h --max-depth=1 | sort -n -r'
 alias ds0='du -h --max-depth=0 | sort -n -r'
 
-# sudo fixes
+# sudo fixes for apt-get
 if groups $USER | grep &>/dev/null '\bsudo\b'; then
-    alias install='sudo apt-get install'
-    alias remove='sudo apt-get remove'
-    alias update='sudo apt-get update'
-    alias upgrade='sudo apt-get upgrade'
-    alias dist-upgrade='sudo apt-get dist-upgrade'
+    if [ -e /usr/bin/apt-get ]; then
+        alias install='sudo apt-get install'
+        alias remove='sudo apt-get remove'
+        alias update='sudo apt-get update'
+        alias upgrade='sudo apt-get upgrade'
+        alias dist-upgrade='sudo apt-get dist-upgrade'
+    fi
 fi
 
 

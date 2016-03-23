@@ -19,4 +19,3 @@ shopt -s histappend histreedit histverify
 shopt -q -s extglob  # Turn on the extended pattern matching features
 
 unset USERNAME
-

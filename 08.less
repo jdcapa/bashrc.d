@@ -1,5 +1,8 @@
 #!/usr/bin/env bash
 
+# Using lesspipe, the binary file output is improved.
+# There are other fixes, but it seems like a lot of effort to make it useful.
+
 export PAGER=less
 export LESSCHARSET='latin1'
 export LESSOPEN='|/usr/bin/lesspipe.sh %s 2>&-'
