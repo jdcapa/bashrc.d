@@ -14,7 +14,7 @@ Now update your `$HOME/.bashrc` file via:
 
 `cat $HOME/.bashrd.d/bashrc.init >> $HOME/.bashrc`
 
-**Make sure this file is not executable; otherwise you will create a loop.**
+**Make sure bashrc.init is not executable; otherwise you will create a loop.**
 Since the lines added to the `$HOME/.bashrc` contain the following.
 
 ```bash
