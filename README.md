@@ -1,6 +1,7 @@
 bashrc.d
 ========
-This is the directory to my `.bashrc` file
+This is the directory to my `.bashrc` file. 
+In the directory, all necessary bash options, paths, aliases and functions are provided through the respective files.
 
 Install
 -------
