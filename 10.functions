@@ -188,31 +188,19 @@ function c4_backup()
          --exclude="*" "$from" "$to";
 }
 
+tunnel_port=4612
+
+function ssht()
+{
+    # This starts an ssh tunnel sequence to your favourite server:
+    ssh -ND 4612 -v $1
+}
 
 function chromium_secure()
 {
-    # This starts chromium through an ssh tunnel. the tunnel needs to be established
-    # ssh -ND 4612 -v <server>
+    # This starts chromium through an ssh tunnel. 
+    # The tunnel needs to be established first (see ssht).
     port=4612
-    chromium-browser --proxy-server="socks://localhost:$port" &
+    chromium-browser --proxy-server="socks://localhost:${tunnel_port}" &
     exit
 }
-
-# function backup()
-# {
-#     rsync -razvP --exclude "*tmp*" --exclude "fort.*" --exclude "DERINT" --exclude "DERGAM" --exclude "VPOUT" --exclude "MOINTS" --exclude "IIII" --exclude "IIJJ" --exclude "IJIJ" --exclude "IJKL" $1 ~/temp_QC/$2 ;
-# }
-
-# function qmsync_Wn()
-# {
-#     find -name "*.inp" -o -name "ZMAT*" -o -name "GENBAS" -o -name "ECPDATA" -o -name "*.xyz"| xargs -0 sh -c \
-#     'for filename; do
-# }
-
-# function find_displacements()
-# {
-#     find -name OUT -print0 | xargs -0 sh -c \
-#     'for filename; do countg=$(grep "CPHF coefficients" $filename | wc -l) && echo "$filename $countg"  ; done' fnord | sort
-# }
-
-
