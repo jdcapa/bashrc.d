@@ -1,37 +1,45 @@
 #!/usr/bin/env bash
 
 
-function doi(){
+function doi()
+{
+    # This retrieves the bib info for a given DOI
     curl -sLH "Accept: text/bibliography; style=bibtex" http://dx.doi.org/$1 | sed -r 's/[a-Z]*=/\n    &/g' | sed 's/}}/}\n}\n/g'
 }
-function c42(){
+function c42()
+{
+    # Requires the c4 script (check the same git repository)
     watch -t -c -n10 "pwd && c4 -s OUT && echo '\nLast 10 lines of the OUTPUT file:\n' && tail -n10 OUT"
 }
-function pdfc(){
+function pdfc()
+{
+    # Requires the pdf toolkit. This removes the nasty advertisement page 
+    #  from a given pdf (scientific papers)
     pdftk $1 cat 2-end output temp0ax.pdf && mv temp0ax.pdf $1
 }
 
 function extract()
 {
-     if [ -f $1 ] ; then
-         case $1 in
-             *.tar.bz2)   tar xvjf $1     ;;
-             *.tar.gz)    tar xvzf $1     ;;
-             *.tar.xz)    tar xvJf $1     ;;
-             *.bz2)       bunzip2 $1      ;;
-             *.rar)       unrar x $1      ;;
-             *.gz)        gunzip $1       ;;
-             *.tar)       tar xvf $1      ;;
-             *.tbz2)      tar xvjf $1     ;;
-             *.tgz)       tar xvzf $1     ;;
-             *.zip)       unzip $1        ;;
-             *.Z)         uncompress $1   ;;
-             *.7z)        7z x $1         ;;
-             *)           echo "'$1' cannot be extracted via >extract<" ;;
-         esac
-     else
-         echo "'$1' is not a valid file"
-     fi
+    # I stole that one from the archwiki page. Quite handy!
+    if [ -f $1 ] ; then
+        case $1 in
+            *.tar.bz2)   tar xvjf $1     ;;
+            *.tar.gz)    tar xvzf $1     ;;
+            *.tar.xz)    tar xvJf $1     ;;
+            *.bz2)       bunzip2 $1      ;;
+            *.rar)       unrar x $1      ;;
+            *.gz)        gunzip $1       ;;
+            *.tar)       tar xvf $1      ;;
+            *.tbz2)      tar xvjf $1     ;;
+            *.tgz)       tar xvzf $1     ;;
+            *.zip)       unzip $1        ;;
+            *.Z)         uncompress $1   ;;
+            *.7z)        7z x $1         ;;
+            *)           echo "'$1' cannot be extracted via >extract<" ;;
+        esac
+    else
+        echo "'$1' is not a valid file"
+    fi
 }
 
 function lowercase()  # move filenames to lowercase
@@ -131,8 +139,9 @@ function Cfour()
 
 function o_backup()
 {
+    # Back-up the essential files from an Orca run to a remote side
     from=$1;
-    to=~/QC_Lib/$2;
+    to=$2;
     rsync -ralvPz -e ssh \
          --exclude="*tmp*" \
          --exclude="*atom*" \
@@ -153,8 +162,9 @@ function o_backup()
 
 function c4_backup()
 {
+    # Back-up the essential files from an Cfour run to a remote side
     from=$1;
-    to=~/QC_Lib/$2;
+    to=~$2;
     rsync -ralvPz -e ssh \
          --include="*/" --include="*.sh" --include="*.py" \
          --include="*.bak" --include="*.log" --include="*DCT" --include="*DIPDER" \
@@ -176,6 +186,16 @@ function c4_backup()
          --include="*iface" --include="*quadratic" --include="*quartic" \
          --include="*rota" --include="*zmat*" --include="*.xyz" \
          --exclude="*" "$from" "$to";
+}
+
+
+function chromium_secure()
+{
+    # This starts chromium through an ssh tunnel. the tunnel needs to be established
+    # ssh -ND 4612 -v <server>
+    port=4612
+    chromium-browser --proxy-server="socks://localhost:$port" &
+    exit
 }
 
 # function backup()
