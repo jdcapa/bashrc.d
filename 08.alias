@@ -28,6 +28,12 @@ alias reload='source ~/.bashrc'
 alias ds1='du -h --max-depth=1 | sort -n -r'
 alias ds0='du -h --max-depth=0 | sort -n -r'
 
+#Git
+
+#Jekyll
+alias jekyll='bundle exec jekyll'
+
+
 # sudo fixes for apt-get
 if groups $USER | grep &>/dev/null '\bsudo\b'; then
     if [ -e /usr/bin/apt-get ]; then
