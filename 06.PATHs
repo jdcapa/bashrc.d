@@ -35,3 +35,7 @@ export PATH
 export LD_LIBRARY_PATH
 export PYTHONPATH
 
+if [ -e $HOME/.rbenv/bin ]; then
+    eval "$(rbenv init -)"
+fi
+
