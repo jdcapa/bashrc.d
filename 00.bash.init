@@ -2,11 +2,12 @@
 
 # Bash Options
 HISTCONTROL=ignoredups:ignorespace
-HISTSIZE=10000
-HISTFILESIZE=20000
+HISTSIZE=-1
+HISTFILESIZE=-1
 export TIMEFORMAT=$'\nreal %3R\tuser %3U\tsys %3S\tpcpu %P\n'
 export HISTTIMEFORMAT="%H:%M > "
 export HISTIGNORE="&:bg:fg:ll:h"
+export HISTFILE=~/.bash_eternal_history
 
 ulimit -S -c 0          # Don't want any coredumps.
 set -o notify  # Get immediate notification of background job termination
