@@ -23,4 +23,5 @@ unset USERNAME
 
 # Where is our local directory?
 LOCAL=/usr/local
+PYTHON_LOC=$HOME/.local
 export LOCAL
