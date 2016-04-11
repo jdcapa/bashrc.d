@@ -28,13 +28,9 @@ alias reload='source ~/.bashrc'
 alias ds1='du -h --max-depth=1 | sort -n -r'
 alias ds0='du -h --max-depth=0 | sort -n -r'
 
-#Git
+# This is a region where non-standard programs are used. We should test before.
 
-#Jekyll
-alias jekyll='bundle exec jekyll'
-
-
-# sudo fixes for apt-get
+# sudo fixes for apt-get (check if we have sudo rights and if apt-get exists)
 if groups $USER | grep &>/dev/null '\bsudo\b'; then
     if [ -e /usr/bin/apt-get ]; then
         alias install='sudo apt-get install'
@@ -45,4 +41,7 @@ if groups $USER | grep &>/dev/null '\bsudo\b'; then
     fi
 fi
 
+
+#Jekyll (Ruby gem for static websites; need to figure out a good way to test)
+alias jekyll='bundle exec jekyll'
 
