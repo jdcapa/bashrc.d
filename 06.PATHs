@@ -1,17 +1,11 @@
 #!/usr/bin/env bash
 
-
 # Remaining Paths
 if [ -d /usr/local/bin ]; then
     LOCALBIN=/usr/local/bin
     PATH=$PATH:$LOCALBIN
 fi
 
-
-if [ -e $BIN/Python/bin ]; then
-    PYBIN=$BIN/Python/bin
-    PATH=$PATH:$PYBIN
-fi
 
 # Remaining Libraries
 if [ -d /usr/local/lib ]; then
@@ -24,17 +18,14 @@ if [ -e /usr/lib/x86_64-linux-gnu ]; then
     LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$GNULIB
 fi
 
-# Remaining Python
-if [ -e $BIN/Python/modules ]; then
-    PYMOD=$BIN/Python/modules
-    PYTHONPATH=$PYTHONPATH:$PYMOD:$LOCALLIB
-fi
 
 # Finally all the variables get exported. Don't add PATH etc. changes after this.
 export PATH
 export LD_LIBRARY_PATH
 export PYTHONPATH
 
+
+#This is for the current ruby environment
 if [ -e $HOME/.rbenv/bin ]; then
     eval "$(rbenv init -)"
 fi
