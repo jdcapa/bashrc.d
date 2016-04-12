@@ -1,10 +1,29 @@
 #!/usr/bin/env bash
 
-if [ -f `which powerline-daemon` ]; then
-    if [ -f ${PYTHON_LOC}/lib/python2.7/site-packages/powerline/bindings/bash/powerline.sh ]; then
-        powerline-daemon -q
-        POWERLINE_BASH_CONTINUATION=1
-        POWERLINE_BASH_SELECT=1
-        . ${PYTHON_LOC}/lib/python2.7/site-packages/powerline/bindings/bash/powerline.sh
-    fi
+# The .local bin
+if [ -d "$HOME/.local/bin" ]; then
+    PATH="$HOME/.local/bin:$PATH"
 fi
+
+# BIN and LIBRARIES in the $HOME/bin directory
+if [ -e $BIN/Python/bin ]; then
+    # BIN
+    PYBIN=$BIN/Python/bin
+    PATH=$PATH:$PYBIN
+fi
+
+if [ -e $BIN/Python/modules ]; then
+    # Python (quick) modules
+    PYMOD=$BIN/Python/modules
+    PYTHONPATH=$PYTHONPATH:$PYMOD:$LOCALLIB
+fi
+
+# This is for a local Python environment (own python compilation in PYTHON_LOC)
+if [ -e $HOME/.virtualenvs ]; then
+    export WORKON_HOME=$HOME/.virtualenvs
+    source ${PYTHON_LOC}/bin/virtualenvwrapper.sh
+    export PROJECT_HOME=$HOME/.devel
+fi
+
+export PATH
+export PYTHONPATH
