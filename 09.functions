@@ -193,14 +193,13 @@ tunnel_port=4612
 function ssht()
 {
     # This starts an ssh tunnel sequence to your favourite server:
-    ssh -ND 4612 -v $1
+    ssh -ND ${tunnel_port} -v $1
 }
 
 function chromium_secure()
 {
     # This starts chromium through an ssh tunnel. 
     # The tunnel needs to be established first (see ssht).
-    port=4612
-    chromium-browser --proxy-server="socks://localhost:${tunnel_port}" &
+    chromium-browser --proxy-server="socks5://localhost:${tunnel_port}" --host-resolver-rules="MAP * 0.0.0.0 , EXCLUDE localhost"
     exit
 }
