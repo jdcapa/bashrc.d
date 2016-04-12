@@ -1,8 +1,11 @@
 #!/usr/bin/env bash
 
+# The .local bin
+if [ -d "$HOME/.local/bin" ]; then
+    PATH="$HOME/.local/bin:$PATH"
+fi
 
 # BIN and LIBRARIES in the $HOME/bin directory
-
 if [ -e $BIN/Python/bin ]; then
     # BIN
     PYBIN=$BIN/Python/bin
@@ -22,3 +25,5 @@ if [ -e $HOME/.virtualenvs ]; then
     export PROJECT_HOME=$HOME/.devel
 fi
 
+export PATH
+export PYTHONPATH
