@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+
+#The autojump feature
+if [ -e $HOME/.autojump/share/autojump/autojump/autojump.bash ]; then
+    source $HOME/.autojump/share/autojump/autojump/autojump.bash
+fi
