@@ -6,23 +6,23 @@ if [ -d "$HOME/.local/bin" ]; then
 fi
 
 # BIN and LIBRARIES in the $HOME/bin directory
-if [ -e $BIN/Python/bin ]; then
+if [ -e "$BIN/Python/bin" ]; then
     # BIN
-    PYBIN=$BIN/Python/bin
-    PATH=$PATH:$PYBIN
+    PYBIN="$BIN/Python/bin"
+    PATH="$PATH:$PYBIN"
 fi
 
-if [ -e $BIN/Python/modules ]; then
+if [ -e "$BIN/Python/modules" ]; then
     # Python (quick) modules
-    PYMOD=$BIN/Python/modules
-    PYTHONPATH=$PYTHONPATH:$PYMOD:$LOCALLIB
+    PYMOD="$BIN/Python/modules"
+    PYTHONPATH="$PYTHONPATH:$PYMOD:$LOCALLIB"
 fi
 
 # This is for a local Python environment (own python compilation in PYTHON_LOC)
-if [ -e $HOME/.virtualenvs ]; then
-    export WORKON_HOME=$HOME/.virtualenvs
+if [ -e "$HOME/.virtualenvs" ]; then
+    export WORKON_HOME="$HOME/.virtualenvs"
     source ${PYTHON_LOC}/bin/virtualenvwrapper.sh
-    export PROJECT_HOME=$HOME/.devel
+    export PROJECT_HOME="$HOME/.devel"
 fi
 
 export PATH
