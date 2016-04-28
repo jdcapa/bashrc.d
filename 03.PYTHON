@@ -6,15 +6,15 @@ if [ -d "$HOME/.local/bin" ]; then
 fi
 
 # BIN and LIBRARIES in the $HOME/bin directory
-if [ -e "$BIN/Python/bin" ]; then
+if [ -e "$HOME/bin/Python/bin" ]; then
     # BIN
-    PYBIN="$BIN/Python/bin"
+    PYBIN="$HOME/bin/Python/bin"
     PATH="$PATH:$PYBIN"
 fi
 
-if [ -e "$BIN/Python/modules" ]; then
+if [ -e "$HOME/bin/Python/modules" ]; then
     # Python (quick) modules
-    PYMOD="$BIN/Python/modules"
+    PYMOD="$HOME/bin/Python/modules"
     PYTHONPATH="$PYTHONPATH:$PYMOD:$LOCALLIB"
 fi
 
