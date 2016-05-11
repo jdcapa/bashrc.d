@@ -22,6 +22,6 @@ shopt -q -s extglob  # Turn on the extended pattern matching features
 unset USERNAME
 
 # Where is our local directory?
-LOCAL=/usr/local
+LOCAL=$HOME/.local
 PYTHON_LOC=$HOME/.local
 export LOCAL
