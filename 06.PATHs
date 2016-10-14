@@ -19,7 +19,7 @@ if [ -e /usr/lib/x86_64-linux-gnu ]; then
 fi
 
 if [ -d ${LOCAL}/lib ]; then
-    LOCALLIB=${LOCAL}/lib
+    LOCALLIB=${LOCAL}/tlib
     LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$LOCALLIB
 fi
 

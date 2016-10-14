@@ -19,11 +19,11 @@ if [ -e "$HOME/bin/Python/modules" ]; then
 fi
 
 # This is for a local Python environment (own python compilation in PYTHON_LOC)
-if [ -e "$HOME/.virtualenvs" ]; then
-    export WORKON_HOME="$HOME/.virtualenvs"
-    source ${PYTHON_LOC}/bin/virtualenvwrapper.sh
-    export PROJECT_HOME="$HOME/.devel"
-fi
+#if [ -e "$HOME/.virtualenvs" ]; then
+#    export WORKON_HOME="$HOME/.virtualenvs"
+#    source ${PYTHON_LOC}/bin/virtualenvwrapper.sh
+#    export PROJECT_HOME="$HOME/.devel"
+#fi
 
 export PATH
 export PYTHONPATH
