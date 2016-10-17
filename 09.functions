@@ -159,6 +159,7 @@ function o_backup()
          --include="*.job" \
          --include="*.cis" \
          --include="*.ccf" \
+         --include="*.cube" \
          --include="*.mrci" \
          --include="*.mrciinp" \
          --exclude="*" "$from" "$to";
