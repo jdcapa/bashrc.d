@@ -20,10 +20,3 @@ shopt -s histappend histreedit histverify
 shopt -q -s extglob  # Turn on the extended pattern matching features
 
 unset USERNAME
-
-# Where is our local directory?
-LOCAL=/usr/local
-PYTHON_LOC=$HOME/.local
-export LOCAL
-export PYTHON_LOC
-

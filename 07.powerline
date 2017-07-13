@@ -1,10 +1,12 @@
 #!/usr/bin/env bash
 
+python3_lib_path=$HOME/.local/lib/python3.6/site-packages
+
 if [ -f `which powerline-daemon` ]; then
-    if [ -f ${PYTHON_LOC}/lib/python3.5/site-packages/powerline/bindings/bash/powerline.sh ]; then
+    if [ -f ${python3_lib_path}/powerline/bindings/bash/powerline.sh ]; then
         powerline-daemon -q
         POWERLINE_BASH_CONTINUATION=1
         POWERLINE_BASH_SELECT=1
-        . ${PYTHON_LOC}/lib/python3.5/site-packages/powerline/bindings/bash/powerline.sh
+        . ${python3_lib_path}/powerline/bindings/bash/powerline.sh
     fi
 fi

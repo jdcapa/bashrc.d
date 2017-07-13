@@ -1,6 +1,0 @@
-#!/usr/bin/env bash
-
-if [ -d ${HOME}/bin ]; then
-    BIN=${HOME}/bin
-    PATH=${BIN}:${PATH}
-fi
