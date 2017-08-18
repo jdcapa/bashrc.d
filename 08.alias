@@ -1,5 +1,10 @@
 #!/usr/bin/env bash
 
+
+# python2 compatibility
+alias python='/usr/bin/python'
+alias python2='/usr/bin/python'
+
 # ls aliases
 alias ll="ls -l --group-directories-first"
 alias ls='ls -hF --color'  # add colors for filetype recognition
@@ -33,11 +38,11 @@ alias ds0='du -h --max-depth=0 | sort -n -r'
 # sudo fixes for apt-get (check if we have sudo rights and if apt-get exists)
 if groups $USER | grep &>/dev/null '\bsudo\b'; then
     if [ -e /usr/bin/apt-get ]; then
-        alias install='sudo apt-get install'
-        alias remove='sudo apt-get remove'
-        alias update='sudo apt-get update'
-        alias upgrade='sudo apt-get upgrade'
-        alias dist-upgrade='sudo apt-get dist-upgrade'
+        alias install='sudo apt install'
+        alias remove='sudo apt remove'
+        alias update='sudo apt update'
+        alias upgrade='sudo apt upgrade'
+        alias dist-upgrade='sudo apt dist-upgrade'
     fi
 fi
 

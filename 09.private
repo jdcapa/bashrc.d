@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-# This contains functions/definitions I don't want to share on github
+
 if [ -f ${HOME}/.bashrc_priv ]; then
-    bash ${HOME}/.bashrc_priv
+    source ${HOME}/.bashrc_priv
 fi
